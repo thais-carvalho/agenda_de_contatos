@@ -76,6 +76,11 @@ class ContactHelper
     }
     return listContact;
   }
+  getNumber() async
+  {
+    Database dbContact = await db;
+    return Sqflite.firstIntValue(await dbContact.rawQuery("SELECT COUNT(*) FROM $contactTable"));
+  }
 }
 
 class Contact
