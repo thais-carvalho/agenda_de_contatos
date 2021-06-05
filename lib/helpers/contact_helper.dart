@@ -76,10 +76,16 @@ class ContactHelper
     }
     return listContact;
   }
-  getNumber() async
+  Future<int> getNumber() async
   {
     Database dbContact = await db;
     return Sqflite.firstIntValue(await dbContact.rawQuery("SELECT COUNT(*) FROM $contactTable"));
+  }
+
+  Future close() async
+  {
+    Database dbContact = await db;
+    dbContact.close();
   }
 }
 
