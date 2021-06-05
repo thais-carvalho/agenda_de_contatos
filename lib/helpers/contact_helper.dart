@@ -39,6 +39,13 @@ class ContactHelper
        await db.execute("CREATE TABLE $contactTable($idColumn INTEGER PRIMARY KEY, $nameColumn TEXT, $emailColumn TEXT, $phoneColumn TEXT, $imageColumn TEXT)");
      });
    }
+
+  Future<Contact> saveContact(Contact contact) async
+  {
+    Database dbContact = await db;
+    contact.id = await dbContact.insert(contactTable, contact.toMap());
+    return contact;
+  }
 }
 
 class Contact
@@ -48,6 +55,8 @@ class Contact
   String email;
   String phone;
   String image;
+
+  Contact();
 
   Contact.fromMap(Map map)
   {
